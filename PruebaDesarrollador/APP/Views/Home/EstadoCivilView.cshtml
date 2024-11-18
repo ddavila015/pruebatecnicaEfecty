@@ -1,0 +1,12 @@
+﻿@model UsuarioDto
+
+
+    <div class="container row">
+
+        <div class="form-check col">
+            @Html.RadioButtonFor(Model => Model.EstadoCivil, 1) Soltero
+        </div>
+        <div class="form-check col">
+            @Html.RadioButtonFor(Model => Model.EstadoCivil, 2) Casado
+        </div> 
+    </div>

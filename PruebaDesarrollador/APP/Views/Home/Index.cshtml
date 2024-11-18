@@ -1,0 +1,77 @@
+﻿@model UsuarioDto
+
+
+@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { Id = "formulario" }))
+{
+
+    <div class="container" style="width:30%;">
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+            @Html.TextBoxFor(Model => Model.Nombre, new { @class = "form-control" })
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Apellido</label>
+            @Html.TextBoxFor(Model => Model.Apellido, new { @class = "form-control" })
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Tipo de Documento</label>
+            @{
+                var items = new SelectList(ViewBag.ListaTipos, "Id", "Nombre");
+            }
+
+            @Html.DropDownListFor(Model => Model.TipoDocumento, items, "Seleccione ...", new { @class = "form-control" })
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Fecha de Nacimiento</label>
+            @Html.TextBoxFor(Model => Model.FechaNacimiento, new { @class = "form-control" })
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Valor a Ganar</label>
+            @Html.TextBoxFor(Model => Model.ValorGanar, new { @class = "form-control validar" })
+        </div>
+        <br />
+        @{
+            Html.RenderPartial("EstadoCivilView");
+        }
+
+        <br />
+        <input type="submit" name="name" value="Guardar" />
+
+         <br />
+           <br />
+        <input type="submit" name="name" value="Consultar" />
+    </div>
+}
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#FechaNacimiento").datepicker({
+                dateFormat: "dd/mm/yy",  // Formato de fecha
+                changeMonth: true,      // Permitir cambiar de mes
+                changeYear: true,       // Permitir cambiar de año
+                yearRange: "1900:2100", // Rango de años
+                showAnim: "fadeIn",     // Animación al mostrar
+                showOtherMonths: true,  // Mostrar días de otros meses
+                selectOtherMonths: true // Permitir seleccionar días de otros meses
+            });
+       
+
+            $(".validar").keydown(function (event) {
+                //alert(event.keyCode);
+                if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode !== 190 && event.keyCode !== 110 && event.keyCode !== 8 && event.keyCode !== 9) {
+                    return false;
+                }
+            });
+
+            $("#FechaNacimiento").keydown(function (event) {
+                   return false;
+                
+            });
+        })
+       
+    </script>
+}
